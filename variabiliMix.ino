@@ -22,7 +22,7 @@ void setup() {
   Serial.println(MSGvaloreA); 
   Serial.println(MSGvaloreB); 
   Serial.println(MSGvaloreC); 
-  Serial.println(MSGvaloreD); 
+  Serial.println(MSGvaloreD,HEX);
   //  
   encodeMessage();
   // bytizzato
@@ -39,7 +39,7 @@ void setup() {
   Serial.println(MSGvaloreA); 
   Serial.println(MSGvaloreB); 
   Serial.println(MSGvaloreC); 
-  Serial.println(MSGvaloreD); 
+  Serial.println(MSGvaloreD,HEX);
   Serial.println("=================="); 
 }
 
