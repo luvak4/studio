@@ -5,7 +5,7 @@ int  MSGvaloreB;
 int  MSGvaloreC;
 byte MSGvaloreD;
 byte BYTE[8];
-byte CIFR[8]={'s','e','i','b','r','a','v','o'};
+byte CIFR[8]={156,33,183,95,230,63,250,215};
 
 void setup() {
   // put your setup code here, to run once:
