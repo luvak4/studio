@@ -1,51 +1,51 @@
+// code-decode message
 byte MSGindirizzo;
 int  MSGvaloreA;
 int  MSGvaloreB;
 int  MSGvaloreC;
 byte MSGvaloreD;
-//
 byte BYTE[8];
-byte CIFR[8]={156,33,183,95,230,63,250,215};
+byte CIFR[8]={'s','e','i','b','r','a','v','o'};
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  //
+  // dati di esempio
   MSGindirizzo=0xAA;
   MSGvaloreA=14567;
   MSGvaloreB=22657;
   MSGvaloreC=-31245;
   MSGvaloreD=0xBB;
-  //
-  Serial.println("=================="); 
-  Serial.println("=================="); 
+  // originale
+  Serial.println("=====originale===="); 
   Serial.println(MSGindirizzo,HEX); 
   Serial.println(MSGvaloreA); 
   Serial.println(MSGvaloreB); 
   Serial.println(MSGvaloreC); 
   Serial.println(MSGvaloreD); 
-
-  
-  setMessaggio();
+  //  
+  encodeMessage();
+  // bytizzato
+  Serial.println("=====bytizzato====");
   for (byte n=0; n<8;n++){ 
     Serial.print(BYTE[n],HEX);    
   }
   Serial.println(); 
-  Serial.println("=================="); 
-  getMessaggio();
+  Serial.println("====recupero======");
+  //
+  decodeMessage();
+  // recupero da bytizzazione
   Serial.println(MSGindirizzo,HEX); 
   Serial.println(MSGvaloreA); 
   Serial.println(MSGvaloreB); 
   Serial.println(MSGvaloreC); 
   Serial.println(MSGvaloreD); 
   Serial.println("=================="); 
-  Serial.println("=================="); 
-  
 }
 
 
-// ho il messaggio in BYTE -> STRUTT
-void getMessaggio(){
+void decodeMessage(){
+  // from byte to struct
   int tempint;
   BYTE[0]=BYTE[0]^CIFR[0];
   MSGindirizzo=BYTE[0];
@@ -75,8 +75,8 @@ void getMessaggio(){
   MSGvaloreD=BYTE[7];
 }
 
-// ho il messaggio in STRUT -> BYTE
-void setMessaggio(){
+void encodeMessage(){
+  // from struct to byte
   int intt;
   unsigned long mask=0x0000FFFF;
   ////////
@@ -108,29 +108,6 @@ void setMessaggio(){
   BYTE[7]=BYTE[7]^CIFR[7];
 }
 
-
-unsigned long scorriotto(unsigned long valore, byte aggiungi){
-  valore=valore << 8;
-  valore+=aggiungi;
-  return valore;
-}
-
-unsigned long scorrisedici(unsigned long valore, unsigned int aggiungi){
-  valore=valore << 16;
-  valore+=aggiungi;
-  return valore;
-}
-
-byte leggiprimiotto(unsigned long valore){
-  unsigned long mask=0x000000FF;
-  return valore & mask;
-}
-
-unsigned int leggiint(unsigned long valore){
-  valore=valore>>8;
-  unsigned long mask=0x0000FFFF;
-  return valore & mask;
-}
 void loop() {
   // put your main code here, to run repeatedly:
   
